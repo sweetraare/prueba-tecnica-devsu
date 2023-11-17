@@ -1,30 +1,10 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addProduct, getAllProducts } from "../requests/products";
-import Product from "../interfaces/products";
+import { useQuery } from "@tanstack/react-query";
+import { getAllProducts } from "../requests/products";
 
 function ProductsTable() {
-  const queryClient = useQueryClient();
-
-  const { isPending, error, data, isFetching } = useQuery({
+  const { isPending, error, data } = useQuery({
     queryKey: ["products"],
     queryFn: () => getAllProducts(),
-  });
-
-  const product: Product = {
-    id: "10001123",
-    name: "alex",
-    description: "ulloa",
-    logo: "htps://",
-    date_release: new Date(),
-    date_revision: new Date(),
-  };
-
-  const mutation = useMutation({
-    mutationFn: () => addProduct(product),
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-    },
   });
 
   if (isPending) {
@@ -35,13 +15,8 @@ function ProductsTable() {
     return <h1>Error: ${error.message}</h1>;
   }
 
-  const handleAdd = () => {
-    mutation.mutate();
-  };
-
   return (
     <>
-      <button onClick={handleAdd}>agregaaar</button>
       <table>
         <thead>
           <tr>

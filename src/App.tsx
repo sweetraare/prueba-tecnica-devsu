@@ -2,21 +2,17 @@ import "./App.css";
 import Header from "./components/header";
 import Button from "./components/button";
 import ProductsTable from "./components/ProductsTable";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-} from "@tanstack/react-query";
-import { addProduct } from "./requests/products";
-import Product from "./interfaces/products";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AddProductModalComponent from "./components/AddProductModal";
+import { useState } from "react";
 
 const queryClient = new QueryClient();
 
 function App() {
-  // Mutations
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleAdd = () => {
-    console.log("holi");
-    // mutation.mutate();
+    setIsOpen(true);
   };
 
   return (
@@ -32,6 +28,7 @@ function App() {
           <ProductsTable />
         </div>
       </div>
+      <AddProductModalComponent isOpen={isOpen} setIsOpen={setIsOpen} />
     </QueryClientProvider>
   );
 }
