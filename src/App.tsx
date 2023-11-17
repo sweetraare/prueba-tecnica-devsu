@@ -1,34 +1,38 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import Header from "./components/header";
+import Button from "./components/button";
+import ProductsTable from "./components/ProductsTable";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useMutation,
+} from "@tanstack/react-query";
+import { addProduct } from "./requests/products";
+import Product from "./interfaces/products";
+
+const queryClient = new QueryClient();
 
 function App() {
-  const [count, setCount] = useState(0);
+  // Mutations
+  const handleAdd = () => {
+    console.log("holi");
+    // mutation.mutate();
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <QueryClientProvider client={queryClient}>
+      <div className="bg-gray-400 min-h-screen min-w-screen">
+        <Header />
+        <div className="p-5">
+          <div className="flex justify-between">
+            <input>
+            </input>
+            <Button label="Agregar" onClick={handleAdd} />
+          </div>
+          <ProductsTable />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </QueryClientProvider>
   );
 }
 
