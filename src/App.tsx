@@ -10,6 +10,7 @@ const queryClient = new QueryClient();
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleAdd = () => {
     setIsOpen(true);
@@ -17,15 +18,21 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="bg-gray-400 min-h-screen min-w-screen">
+      <div className="bg-gray-400 min-h-screen min-w-screen flex flex-col items-center">
         <Header />
-        <div className="p-5">
-          <div className="flex justify-between">
-            <input>
-            </input>
-            <Button label="Agregar" onClick={handleAdd} />
+        <div className="mt-10  w-9/12">
+          <div className="p-5 overflow-x-scroll">
+            <div className="flex justify-between my-3 flex-col md:flex-row">
+              <input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search..."
+                className="border-2 border-gray-300 rounded"
+              />
+              <Button label="Agregar" onClick={handleAdd} />
+            </div>
+            <ProductsTable searchQuery={searchQuery} />
           </div>
-          <ProductsTable />
         </div>
       </div>
       <AddProductModalComponent isOpen={isOpen} setIsOpen={setIsOpen} />

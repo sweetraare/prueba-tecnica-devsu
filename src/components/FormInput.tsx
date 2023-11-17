@@ -8,15 +8,32 @@ interface FormInput {
   register: UseFormRegister<Product>;
   required: boolean;
   type?: string;
+  minLength?: number;
+  maxLength?: number;
 }
 
 function FormInput(
-  { label, id, register, error, required, type, ...props }: FormInput,
+  {
+    label,
+    id,
+    register,
+    error,
+    required,
+    minLength,
+    maxLength,
+    type,
+    ...props
+  }: FormInput,
 ) {
   let errorMessage: string | undefined;
 
-  if (error && error.type === "required") {
-    errorMessage = "Este campo es requerido!";
+  if (error) {
+    if (error.type === "required") {
+      errorMessage = "Este campo es requerido!";
+    }
+    if (error.type === "minLength" || error.type === "maxLength") {
+      errorMessage = "Se necesita entre 3 y 10 caracteres";
+    }
   }
 
   return (
@@ -24,7 +41,12 @@ function FormInput(
       <label className="font-bold">{label}</label>
       <input
         className="border-2 border-gray-300 rounded bg-transparent"
-        {...register(id, { required: required, ...props })}
+        {...register(id, {
+          required: required,
+          minLength: minLength,
+          maxLength: maxLength,
+          ...props,
+        })}
         type={type}
       />
       <p className="text-red-500">{errorMessage || " "}</p>

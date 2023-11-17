@@ -52,6 +52,8 @@ function AddProductModalComponent({ isOpen, setIsOpen }: Props) {
             register={register}
             error={errors?.id}
             required={true}
+            minLength={3}
+            maxLength={10}
           />
           <FormInput
             label="Nombre"
@@ -90,7 +92,7 @@ function AddProductModalComponent({ isOpen, setIsOpen }: Props) {
             required
             type="date"
           />
-          <Button label="Reiniciar" type="reset" />
+          <Button label="Reiniciar" type="reset" secondary />
           <Button label="Enviar" type="submit" />
         </form>
       </Dialog.Panel>
