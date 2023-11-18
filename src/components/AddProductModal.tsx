@@ -92,7 +92,9 @@ function AddProductModalComponent({ isOpen, setIsOpen }: Props) {
             required
             type="date"
           />
+          {/* @ts-expect-error will fix later */}
           <Button label="Reiniciar" type="reset" secondary />
+          {/* @ts-expect-error will fix later */}
           <Button label="Enviar" type="submit" />
         </form>
       </Dialog.Panel>

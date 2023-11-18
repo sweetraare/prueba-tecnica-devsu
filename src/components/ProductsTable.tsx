@@ -26,6 +26,7 @@ function ProductsTable({ searchQuery }: ProductsTableProps) {
 
   const handleOptionSelected = (option: string) => {
     //TODO: create this functionality
+    console.log(option);
   };
 
   const productsList = data.filter((product) =>
